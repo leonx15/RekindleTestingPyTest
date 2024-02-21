@@ -17,9 +17,9 @@ thanks to this PyTest recognize each of these methods as separate test.
 | utils.py    | File with common method to be used across tests. remember to import needed functions at the beginning of file. |
 | config.json | File with configuration parameters shared across all tests.                                                    |
 
-| Library     | Description                                                                                                   |
-|-------------|---------------------------------------------------------------------------------------------------------------|
-| PyTest      | Main library for framework. To run test there is need only to write *pytest* in the command line              |
-| PyTest-HTML | Library to generate HTML reports to generate HTML report need put in command line *pytest --html=report.html* |
-| requests    | Library to handle HTTPRequests                                                                                |
-| psycopg2    | Library to handle database requests.                                                                          |
+| Library     | Description                                                                                                                       |
+|-------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| PyTest      | Main library for framework. To run test there is need only to write *pytest* in the command line or *pytest path/to/test/file.py* |
+| PyTest-HTML | Library to generate HTML reports to generate HTML report need put in command line *pytest --html=report.html*                     |
+| requests    | Library to handle HTTPRequests                                                                                                    |
+| psycopg2    | Library to handle database requests.                                                                                              |
