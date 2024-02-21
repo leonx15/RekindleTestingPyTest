@@ -5,7 +5,9 @@ While opening it, please make sure you are working in virtualenv, to do not mess
 
 Install needed libraries from requirements.txt
 
-After that you can start writing the tests in tests/ directory remember to start the name of your file with **test\_\*.py**
+Update **config_template.json** file with correct data and save it as **config.json**
+
+After that you can start writing the tests in **tests/** directory remember to start the name of your file with **test\_\*.py**
 it is needed by PyTest to recognize files to run with tests.
 In the file create main class and under it create methods name convention is to use **test\_** at the beginning of each method,
 thanks to this PyTest recognize each of these methods as separate test.
