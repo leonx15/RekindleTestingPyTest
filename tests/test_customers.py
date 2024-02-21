@@ -20,6 +20,8 @@ class TestCustomers:
         host = load_config()["host_env"]
         count_before = count_items_in_db("customer.customers")
         print(f"Count before: {count_before}")
+
+        # Set up to create new user by API request.
         headers = {
             "Authorization": f"Bearer {jwt_token}"
         }
@@ -32,11 +34,14 @@ class TestCustomers:
         response = requests.post(f"http://{host}:8184/api/v1/customers", json=json_data, headers=headers)
         user_id = json.loads(response.text)["customerId"]
         print(f"User created: {user_id}")
+        # Check the message and status code from endpoint.
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
         count_after = count_items_in_db("customer.customers")
         print(f"Count after: {count_after}")
 
+        # Check if user is created in the DB.
         assert count_after == count_before + 1
 
+        # Remove created customer from previous steps.
         remove_items_in_db("customer.customers", user_id)
