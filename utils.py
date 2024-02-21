@@ -49,13 +49,13 @@ def count_items_in_db(schema_with_table):
     return count
 
 
-def remove_items_in_db(schema_with_table, uuid):
+def remove_items_in_db(schema_with_table, customer_uuid):
     config = load_config()
     connection = psycopg2.connect(dbname=config["db_name"], user=config["db_user"], password=config["db_password"],
                                   host=config["db_host"], port=config["db_port"])
     cur = connection.cursor()
-    cur.execute(f"DELETE FROM {schema_with_table} WHERE id = %s", (uuid,))
+    cur.execute(f"DELETE FROM {schema_with_table} WHERE id = %s", (customer_uuid,))
     connection.commit()
     cur.close()
     connection.close()
-    return print(f"User {uuid} cleanup done")
+    return print(f"User {customer_uuid} cleanup done")

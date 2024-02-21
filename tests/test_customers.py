@@ -32,8 +32,8 @@ class TestCustomers:
         }
 
         response = requests.post(f"http://{host}:8184/api/v1/customers", json=json_data, headers=headers)
-        user_id = json.loads(response.text)["customerId"]
-        print(f"User created: {user_id}")
+        customer_id = json.loads(response.text)["customerId"]
+        print(f"User created: {customer_id}")
         # Check the message and status code from endpoint.
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
@@ -44,4 +44,4 @@ class TestCustomers:
         assert count_after == count_before + 1
 
         # Remove created customer from previous steps.
-        remove_items_in_db("customer.customers", user_id)
+        remove_items_in_db("customer.customers", customer_id)
