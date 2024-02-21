@@ -1,9 +1,11 @@
 # PyTest for rekindle.
 
+Install **Python 3.9** (from microsoft store on Windows)
+
 To conduct tests or write your own please download this repository to your machine and open as a project in PyCharm.
 While opening it, please make sure you are working in virtualenv, to do not mess up with pure python installed on your machine.
 
-Install needed libraries from requirements.txt
+Needed libraries from requirements.txt install after run project with virtualenv.
 
 Update **config_template.json** file with correct data and save it as **config.json**
 
