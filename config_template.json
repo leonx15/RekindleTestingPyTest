@@ -1,0 +1,10 @@
+{
+  "db_name": "name",
+  "db_user": "user",
+  "db_password": "password",
+  "db_host": "localhost",
+  "db_port": "8888",
+  "host_env": "localhost",
+  "client_id": "client-id",
+  "client_secret": "seCreT"
+}
