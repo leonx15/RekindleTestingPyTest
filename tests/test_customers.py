@@ -1,7 +1,5 @@
 from utils import utils_main
 from utils import utils_customers
-
-import requests
 import json
 
 
