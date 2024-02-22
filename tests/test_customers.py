@@ -8,30 +8,29 @@ import json
 class TestCustomers:
 
     def test_api_status_customers(self):
-        host = utils_main.load_config()["host_env"]
-        headers = {
-            "Authorization": f"Bearer {utils_main.get_jwt_token()}"
-        }
-        response = requests.get(f"http://{host}:8184/api/v1/customers", headers=headers)
+        response = utils_customers.api_status_customers()
         assert response.status_code == 200
 
     def test_create_user(self):
-        host = utils_main.load_config()["host_env"]
+        user_data = {
+            "username": "Test1",
+            "firstName": "Testiko",
+            "lastName": "Testowy"
+        }
+
         count_before = utils_main.count_items_in_db("customer.customers")
         print(f"Count before: {count_before}")
 
-        # Set up to create new user by API request.
-        response = utils_customers.create_customer(host)
+    # Step 1: Create User.
+        response = utils_customers.create_customer(user_data)
         customer_id = json.loads(response.text)["customerId"]
         print(f"User created: {customer_id}")
-        # Check the message and status code from endpoint.
+    # Step 2: Check the message and status code from endpoint.
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
+    # Step 3: Check DB for created user.
         count_after = utils_main.count_items_in_db("customer.customers")
         print(f"Count after: {count_after}")
-
-        # Check if user is created in the DB.
         assert count_after == count_before + 1
-
-        # Remove created customer from previous steps.
+    # Step 4: Remove created customer.
         utils_main.remove_items_in_db("customer.customers", customer_id)
