@@ -20,9 +20,7 @@ class TestCustomers:
         print(f"Count before: {count_before}")
 
     # Step 1: Create User.
-        response = utils_customers.create_customer(user_data)
-        customer_id = json.loads(response.text)["customerId"]
-        print(f"User created: {customer_id}")
+        response, customer_id = utils_customers.create_customer(user_data)
     # Step 2: Check the message and status code from endpoint.
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
