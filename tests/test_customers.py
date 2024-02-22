@@ -20,7 +20,7 @@ class TestCustomers:
 
     def test_create_user(self, user_data):
 
-        count_before = utils_main.count_items_in_db("customer.customers")
+        count_before = utils_main.count_items_in_db(schema_for_db)
         print(f"Count before: {count_before}")
 
     # Step 1: Create User.
@@ -29,7 +29,7 @@ class TestCustomers:
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
     # Step 3: Check DB for created user.
-        count_after = utils_main.count_items_in_db("customer.customers")
+        count_after = utils_main.count_items_in_db(schema_for_db)
         print(f"Count after: {count_after}")
         assert count_after == count_before + 1
     # Step 4: Remove created customer.
