@@ -8,11 +8,17 @@ schema_for_db = "customer.customers"
 
 @pytest.fixture()
 def user_data():
-    return {
+    new_user_data = {
         "username": "Test1",
-        "firstName": "Testiko",
-        "lastName": "Testowy"
+        "firstName": "FirstTestiko",
+        "lastName": "LastTestowy"
     }
+    updated_user_data = {
+        "username": "UpdateTesto",
+        "firstName": "UpdateFirst",
+        "lastName": "UpdateLast"
+    }
+    yield new_user_data, updated_user_data
 
 
 class TestCustomers:
@@ -27,7 +33,7 @@ class TestCustomers:
         print(f"Count before: {count_before}")
 
         # Step 1: Create User.
-        response, customer_id = utils_customers.create_customer(user_data)
+        response, customer_id = utils_customers.create_customer(user_data[0])
         # Step 2: Check the message and status code from endpoint.
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
