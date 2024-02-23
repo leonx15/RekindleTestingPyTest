@@ -24,7 +24,7 @@ def create_bookstore(json_data):
     try:
         response = requests.post(f"http://{host}:8183/api/v1/bookstores", json=json_data, headers=headers)
         response.raise_for_status()
-        bookstore_id = response.text
+        bookstore_id = json.loads(response.text)
         return response, bookstore_id
     except requests.exceptions.HTTPError as http_err:
         raise AssertionError(f"HTTP error during creating bookstore: {http_err}")
@@ -34,7 +34,7 @@ def create_bookstore(json_data):
 
 def get_specific_bookstore(bookstore_id):
     try:
-        response = requests.get(f"http://{host}:8183/api/v1/bookstores", headers=headers)
+        response = requests.get(f"http://{host}:8183/api/v1/bookstores/{bookstore_id}", headers=headers)
         response.raise_for_status()
         bookstore_data = json.loads(response.text)
         return response, bookstore_data
@@ -42,3 +42,15 @@ def get_specific_bookstore(bookstore_id):
         raise AssertionError(f"HTTP error during looking for bookstore: {http_err}")
     except Exception as err:
         raise AssertionError(f"An error occurred: {err}")
+
+
+def update_bookstore(bookstore_id, json_data):
+    try:
+        response = requests.put(f"http://{host}:8183/api/v1/bookstores/{bookstore_id}", json=json_data, headers=headers)
+        response.raise_for_status()
+        return response
+    except requests.exceptions.HTTPError as http_err:
+        raise AssertionError(f"HTTP error during looking for bookstore: {http_err}")
+    except Exception as err:
+        raise AssertionError(f"An error occurred: {err}")
+
