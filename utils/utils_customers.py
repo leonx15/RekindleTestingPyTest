@@ -21,7 +21,7 @@ def create_customer(json_data):
         print(f"User created: {customer_id}")
         return response, customer_id
     except requests.exceptions.HTTPError as http_err:
-        raise AssertionError(f"HTTP error during update: {http_err}")
+        raise AssertionError(f"HTTP error during creating user: {http_err}")
     except Exception as err:
         raise AssertionError(f"An error occurred: {err}")
 
@@ -33,9 +33,9 @@ def get_list_of_customers():
         json_list_customers = json.loads(response.text)
         return response, json_list_customers
     except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
+        raise AssertionError(f"HTTP error occurred: {http_err}")
     except Exception as err:
-        print(f"An error occurred: {err}")
+        raise AssertionError(f"An error occurred: {err}")
 
 def update_customer(customer_id, json_data):
     try:
@@ -44,9 +44,9 @@ def update_customer(customer_id, json_data):
         print(f"User updated: {customer_id}")
         return response
     except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
+        raise AssertionError(f"HTTP error occurred: {http_err}")
     except Exception as err:
-        print(f"An error occurred: {err}")
+        raise AssertionError(f"An error occurred: {err}")
 
 
 def get_customer_data(customer_id):
@@ -59,10 +59,10 @@ def get_customer_data(customer_id):
         if response is not None and response.status_code == 400:
             print(f"User does not exist. (400)")
         else:
-            print(f"HTTP error occurred: {http_err}")
+            raise AssertionError(f"HTTP error occurred: {http_err}")
         return response, None
     except Exception as err:
-        print(f"An error occurred: {err}")
+        raise AssertionError(f"An error occurred: {err}")
 
 
 def delete_customer(customer_id):
