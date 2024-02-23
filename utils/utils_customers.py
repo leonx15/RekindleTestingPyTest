@@ -21,9 +21,9 @@ def create_customer(json_data):
         print(f"User created: {customer_id}")
         return response, customer_id
     except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
+        raise AssertionError(f"HTTP error during update: {http_err}")
     except Exception as err:
-        print(f"An error occurred: {err}")
+        raise AssertionError(f"An error occurred: {err}")
 
 
 def get_list_of_customers():
