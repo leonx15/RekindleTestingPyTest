@@ -30,7 +30,7 @@ def get_list_of_customers():
     try:
         response = requests.get(f"http://{host}:8184/api/v1/customers", headers=headers)
         response.raise_for_status()
-        json_list_customers = response.text
+        json_list_customers = json.loads(response.text)
         return response, json_list_customers
     except requests.exceptions.HTTPError as http_err:
         print(f"HTTP error occurred: {http_err}")
