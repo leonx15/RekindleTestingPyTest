@@ -24,7 +24,7 @@ def user_data():
 class TestCustomers:
 
     def test_api_status_customers(self):
-        response = utils_customers.api_status_customers()
+        response = utils_customers.get_list_of_customers()[0]
         assert response.status_code == 200
 
     def test_create_user(self, user_data):

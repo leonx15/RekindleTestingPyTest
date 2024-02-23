@@ -37,6 +37,7 @@ def get_list_of_customers():
     except Exception as err:
         raise AssertionError(f"An error occurred: {err}")
 
+
 def update_customer(customer_id, json_data):
     try:
         response = requests.put(f"http://{host}:8184/api/v1/customers/{customer_id}", json=json_data, headers=headers)
@@ -54,7 +55,7 @@ def get_customer_data(customer_id):
         response = requests.get(f"http://{host}:8184/api/v1/customers/{customer_id}", headers=headers)
         user_data = None
         if response.status_code == 200:
-            user_data = response.json()  # Assuming the response is JSON.
+            user_data = response.json()
         return response, user_data
     except requests.exceptions.HTTPError as http_err:
         raise AssertionError(f"HTTP error occurred: {http_err}")
