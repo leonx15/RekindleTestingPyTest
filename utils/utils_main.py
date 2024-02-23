@@ -58,4 +58,4 @@ def remove_items_in_db(schema_with_table, item_id):
     connection.commit()
     cur.close()
     connection.close()
-    return print(f"User {item_id} cleanup done")
+    return print(f"Item {item_id} cleanup done")
