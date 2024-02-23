@@ -51,6 +51,11 @@ class TestCustomers:
         utils_customers.update_customer(customer_id, user_data[1])
         # Step 3: Check updated values.
         _, updated_user_data = utils_customers.get_customer_data(customer_id)
+        print(updated_user_data["id"])
+        assert created_user_data["id"] == updated_user_data["id"]
+        assert updated_user_data["username"] == user_data[1]["username"]
+        assert updated_user_data["firstName"] == user_data[1]["firstName"]
+        assert updated_user_data["lastName"] == user_data[1]["lastName"]
         assert created_user_data != updated_user_data
         # Step 4: Clean up after test.
         utils_main.remove_items_in_db(schema_for_db, customer_id)

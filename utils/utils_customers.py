@@ -53,7 +53,7 @@ def get_customer_data(customer_id):
     try:
         response = requests.get(f"http://{host}:8184/api/v1/customers/{customer_id}", headers=headers)
         response.raise_for_status()
-        user_data = response.text
+        user_data = json.loads(response.text)
         return response, user_data
     except requests.exceptions.HTTPError as http_err:
         if response is not None and response.status_code == 400:
