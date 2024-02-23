@@ -10,8 +10,8 @@ schema_for_db = "customer.customers"
 def user_data():
     new_user_data = {
         "username": "Test1",
-        "firstName": "FirstTestiko",
-        "lastName": "LastTestowy"
+        "firstName": "Testiko",
+        "lastName": "Testowy"
     }
     updated_user_data = {
         "username": "UpdateTesto",
@@ -46,15 +46,9 @@ class TestCustomers:
 
     def test_update_customer(self, user_data):
         # Step 1: Create user.
-        _, customer_id = utils_customers.create_customer(user_data)
-        # Step 2: Update values for customer.
-        new_user_data = {
-            "username": "UpTest1",
-            "firstName": "UpTestiko",
-            "lastName": "UpTestowy"
-        }
+        _, customer_id = utils_customers.create_customer(user_data[0])
         _, created_user_data = utils_customers.get_customer_data(customer_id)
-        utils_customers.update_customer(customer_id, new_user_data)
+        utils_customers.update_customer(customer_id, user_data[1])
         # Step 3: Check updated values.
         _, updated_user_data = utils_customers.get_customer_data(customer_id)
         assert created_user_data != updated_user_data
