@@ -52,15 +52,12 @@ def update_customer(customer_id, json_data):
 def get_customer_data(customer_id):
     try:
         response = requests.get(f"http://{host}:8184/api/v1/customers/{customer_id}", headers=headers)
-        response.raise_for_status()
-        user_data = json.loads(response.text)
+        user_data = None
+        if response.status_code == 200:
+            user_data = response.json()  # Assuming the response is JSON.
         return response, user_data
     except requests.exceptions.HTTPError as http_err:
-        if response is not None and response.status_code == 400:
-            print(f"User does not exist. (400)")
-        else:
-            raise AssertionError(f"HTTP error occurred: {http_err}")
-        return response, None
+        raise AssertionError(f"HTTP error occurred: {http_err}")
     except Exception as err:
         raise AssertionError(f"An error occurred: {err}")
 

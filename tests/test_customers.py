@@ -60,15 +60,12 @@ class TestCustomers:
 
     def test_delete_customer_by_api(self, user_data):
         # Step 1: Create user.
-        _, customer_id = utils_customers.create_customer(user_data)
+        _, customer_id = utils_customers.create_customer(user_data[0])
         response, _ = utils_customers.get_customer_data(customer_id)
         assert response.status_code == 200
         # Step 2: Delete created user.
         response = utils_customers.delete_customer(customer_id)
         assert response.status_code == 200
         # Step 3: Check if user cannot be reach by API.
-        try:
-            response, _ = utils_customers.get_customer_data(customer_id)
-            assert response.status_code == 400
-        except AssertionError:
-            pytest.fail("Customer data still available.")
+        response, _ = utils_customers.get_customer_data(customer_id)
+        assert response.status_code == 400, "Customer data still available after deletion."
