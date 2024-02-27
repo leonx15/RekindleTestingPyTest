@@ -1,6 +1,5 @@
 from utils import utils_main
 from utils import utils_bookstores
-import requests
 import pytest
 
 schema_for_db_bookstores = "bookstore.bookstores"

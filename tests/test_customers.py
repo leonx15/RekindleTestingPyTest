@@ -18,7 +18,7 @@ def user_data():
         "firstName": "UpdateFirst",
         "lastName": "UpdateLast"
     }
-    yield new_user_data, updated_user_data
+    return new_user_data, updated_user_data
 
 
 class TestCustomers:
@@ -29,19 +29,19 @@ class TestCustomers:
 
     def test_create_user(self, user_data):
 
+        # Step 1: Count users before create new one.
         count_before = utils_main.count_items_in_db(schema_for_db)
         print(f"Count before: {count_before}")
-
-        # Step 1: Create User.
+        # Step 2: Create User.
         response, customer_id = utils_customers.create_customer(user_data[0])
-        # Step 2: Check the message and status code from endpoint.
+        # Step 3: Check the message and status code from endpoint.
         assert json.loads(response.text)["message"] == "Customer saved successfully!"
         assert response.status_code == 201
-        # Step 3: Check DB for created user.
+        # Step 4: Check DB for created user.
         count_after = utils_main.count_items_in_db(schema_for_db)
         print(f"Count after: {count_after}")
         assert count_after == count_before + 1
-        # Step 4: Remove created customer.
+        # Step 5: Clean up after test.
         utils_main.remove_items_in_db(schema_for_db, customer_id)
 
     def test_update_customer(self, user_data):
