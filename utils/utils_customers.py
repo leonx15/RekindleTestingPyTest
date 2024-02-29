@@ -3,72 +3,39 @@ import requests
 import json
 
 host = utils_main.load_config()["host_env"]
-headers = {
-        "Authorization": f"Bearer {utils_main.get_jwt_token()}"
-    }
 
 
 def api_status_customers():
-    response = requests.get(f"http://{host}:8184/api/v1/customers", headers=headers)
+    response = utils_main.make_api_request("GET", f"http://{host}:8184/api/v1/customers")
     return response
 
 
 def create_customer(json_data):
-    try:
-        response = requests.post(f"http://{host}:8184/api/v1/customers", json=json_data, headers=headers)
-        response.raise_for_status()
-        customer_id = json.loads(response.text)["customerId"]
-        print(f"User created: {customer_id}")
-        return response, customer_id
-    except requests.exceptions.HTTPError as http_err:
-        raise AssertionError(f"HTTP error during creating user: {http_err}")
-    except Exception as err:
-        raise AssertionError(f"An error occurred: {err}")
+    response = utils_main.make_api_request("POST", f"http://{host}:8184/api/v1/customers", json_data)
+    customer_id = json.loads(response.text)["customerId"]
+    print(f"User created: {customer_id}")
+    return response, customer_id
 
 
 def get_list_of_customers():
-    try:
-        response = requests.get(f"http://{host}:8184/api/v1/customers", headers=headers)
-        response.raise_for_status()
-        json_list_customers = json.loads(response.text)
-        return response, json_list_customers
-    except requests.exceptions.HTTPError as http_err:
-        raise AssertionError(f"HTTP error occurred: {http_err}")
-    except Exception as err:
-        raise AssertionError(f"An error occurred: {err}")
+    response = utils_main.make_api_request("GET", f"http://{host}:8184/api/v1/customers")
+    json_list_customers = json.loads(response.text)
+    return response, json_list_customers
 
 
 def update_customer(customer_id, json_data):
-    try:
-        response = requests.put(f"http://{host}:8184/api/v1/customers/{customer_id}", json=json_data, headers=headers)
-        response.raise_for_status()
-        print(f"User updated: {customer_id}")
-        return response
-    except requests.exceptions.HTTPError as http_err:
-        raise AssertionError(f"HTTP error occurred: {http_err}")
-    except Exception as err:
-        raise AssertionError(f"An error occurred: {err}")
+    response = utils_main.make_api_request("PUT", f"http://{host}:8184/api/v1/customers/{customer_id}", json_data)
+    print(f"User updated: {customer_id}")
+    return response
 
 
-def get_customer_data(customer_id):
-    try:
-        response = requests.get(f"http://{host}:8184/api/v1/customers/{customer_id}", headers=headers)
-        user_data = None
-        if response.status_code == 200:
-            user_data = response.json()
-        return response, user_data
-    except requests.exceptions.HTTPError as http_err:
-        raise AssertionError(f"HTTP error occurred: {http_err}")
-    except Exception as err:
-        raise AssertionError(f"An error occurred: {err}")
+def get_customer_data(customer_id, allowed_statuses=None):
+    response = utils_main.make_api_request("GET", f"http://{host}:8184/api/v1/customers/{customer_id}", allowed_statuses=allowed_statuses)
+    user_data = response.json()
+    return response, user_data
 
 
 def delete_customer(customer_id):
-    try:
-        response = requests.delete(f"http://{host}:8184/api/v1/customers/{customer_id}", headers=headers)
-        print(f"User {customer_id} successfully deleted")
-        return response
-    except requests.exceptions.HTTPError as http_err:
-        print(f"HTTP error occurred: {http_err}")
-    except Exception as err:
-        print(f"An error occurred: {err}")
+    response = utils_main.make_api_request("DELETE", f"http://{host}:8184/api/v1/customers/{customer_id}")
+    print(f"User {customer_id} successfully deleted")
+    return response

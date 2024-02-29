@@ -1,5 +1,7 @@
 import base64
 import json
+import logging
+
 import requests
 import psycopg2
 
@@ -36,6 +38,23 @@ def get_jwt_token():
     access_token = json.loads(response.text)["access_token"]
     return access_token
 
+
+def make_api_request(method, url, data=None, allowed_statuses=None):
+    headers = {
+        "Authorization": f"Bearer {get_jwt_token()}"
+    }
+    try:
+        response = requests.request(method, url, json=data, headers=headers)
+        if allowed_statuses and response.status_code in allowed_statuses:
+            return response
+        response.raise_for_status()
+        return response
+    except requests.exceptions.HTTPError as e:
+        logging.error(f"HTTP error: {e.response.status_code} - {e.response.text}")
+        raise
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error making request: {e}")
+        raise
 
 def count_items_in_db(schema_with_table):
     config = load_config()

@@ -21,6 +21,7 @@ def user_data():
     return new_user_data, updated_user_data
 
 
+
 class TestCustomers:
 
     def test_api_status_customers(self):
@@ -67,5 +68,5 @@ class TestCustomers:
         response = utils_customers.delete_customer(customer_id)
         assert response.status_code == 200
         # Step 3: Check if user cannot be reach by API.
-        response, _ = utils_customers.get_customer_data(customer_id)
+        response, _ = utils_customers.get_customer_data(customer_id, allowed_statuses=[400])
         assert response.status_code == 400, "Customer data still available after deletion."
