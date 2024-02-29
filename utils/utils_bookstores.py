@@ -2,9 +2,6 @@ from utils import utils_main
 import json
 
 host = utils_main.load_config()["host_env"]
-headers = {
-        "Authorization": f"Bearer {utils_main.get_jwt_token()}"
-    }
 
 
 def get_list_of_bookstores():
@@ -32,5 +29,10 @@ def update_bookstore(bookstore_id, json_data):
 
 def delete_bookstore(bookstore_id):
     response = utils_main.make_api_request("DELETE", f"http://{host}:8183/api/v1/bookstores/{bookstore_id}")
-    response.raise_for_status()
     return response
+
+
+def add_item_to_bookstore(bookstore_id, item_data):
+    response = utils_main.make_api_request("POST", f"http://localhost:8183/api/v1/bookstores/{bookstore_id}/product",item_data)
+    item_id = json.loads(response.text)
+    return response, item_id
