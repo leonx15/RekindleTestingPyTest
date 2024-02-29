@@ -1,5 +1,4 @@
 from utils import utils_main
-import requests
 import json
 
 host = utils_main.load_config()["host_env"]
