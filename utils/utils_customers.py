@@ -5,11 +5,6 @@ import json
 host = utils_main.load_config()["host_env"]
 
 
-def api_status_customers():
-    response = utils_main.make_api_request("GET", f"http://{host}:8184/api/v1/customers")
-    return response
-
-
 def create_customer(json_data):
     response = utils_main.make_api_request("POST", f"http://{host}:8184/api/v1/customers", json_data)
     customer_id = json.loads(response.text)["customerId"]
