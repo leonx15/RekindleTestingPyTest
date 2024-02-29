@@ -18,29 +18,31 @@ def bookstore_data():
     return new_bookstore_data, bookstore_update_data
 
 
+@pytest.fixture()
+def create_bookstore(bookstore_data):
+    response, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
+    yield response, bookstore_id
+    utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
+
 class TestBookstores:
     def test_api_status(self):
         response, _ = utils_bookstores.get_list_of_bookstores()
         assert response.status_code == 200
 
-    def test_create_bookstore(self, bookstore_data):
-        response, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
+    def test_create_bookstore(self, create_bookstore):
+        response, bookstore_id = create_bookstore
         assert response.status_code == 201
-        _, bookstore_data = utils_bookstores.get_specific_bookstore(bookstore_id)
-        assert bookstore_id == bookstore_data["id"]
-        # Clean up
-        utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
+        _, specific_bookstore_data = utils_bookstores.get_specific_bookstore(bookstore_id)
+        assert bookstore_id == specific_bookstore_data["id"]
 
-    def test_update_bookstore(self, bookstore_data):
-        _, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
+    def test_update_bookstore(self, create_bookstore, bookstore_data):
+        _, bookstore_id = create_bookstore
         response = utils_bookstores.update_bookstore(bookstore_id, bookstore_data[1])
         assert response.status_code == 204
         _, updated_bookstore_data = utils_bookstores.get_specific_bookstore(bookstore_id)
         assert bookstore_id == updated_bookstore_data["id"]
         assert updated_bookstore_data["name"] == bookstore_data[1]["name"]
         assert updated_bookstore_data["isActive"] == bookstore_data[1]["isActive"]
-        # Clean up
-        utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
 
     def test_delete_bookstore(self, bookstore_data):
         _, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
