@@ -47,7 +47,7 @@ class TestBookstores:
         _, created_bookstore_data = utils_bookstores.get_specific_bookstore(bookstore_id)
         assert created_bookstore_data["id"] == bookstore_id
         utils_bookstores.delete_bookstore(bookstore_id)
-        response, _ = utils_bookstores.get_specific_bookstore(bookstore_id)
+        response, _ = utils_bookstores.get_specific_bookstore(bookstore_id, allowed_statuses=[404])
         assert response.status_code == 404
         # Clean up
         utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
