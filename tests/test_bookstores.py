@@ -24,6 +24,7 @@ def create_bookstore(bookstore_data):
     yield response, bookstore_id
     utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
 
+
 class TestBookstores:
     def test_api_status(self):
         response, _ = utils_bookstores.get_list_of_bookstores()
