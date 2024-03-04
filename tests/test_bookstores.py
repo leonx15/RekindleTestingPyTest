@@ -40,16 +40,16 @@ class TestBookstores:
 class TestBookstoreItems:
 
     def test_create_product(self, create_product_for_bookstore):
-        response, product_id = create_product_for_bookstore
+        response, product_id, *trash = create_product_for_bookstore
         print(f"Response: {response}")
         assert response.status_code == 201
 
     def test_get_product_info(self, create_product_for_bookstore, product_data):
         new_product_data, _ = product_data
-        _, product_id = create_product_for_bookstore
+        _, product_id, bookstore_where_product_added = create_product_for_bookstore
         product_data_from_api = utils_bookstores.get_product_data(product_id)
         print(f"Product data from API: {product_data_from_api}")
         assert new_product_data['name'] == product_data_from_api['name']
         assert new_product_data['price'] == product_data_from_api['price']
         assert new_product_data['available'] == product_data_from_api['available']
-
+        assert bookstore_where_product_added in product_data_from_api['bookstores']
