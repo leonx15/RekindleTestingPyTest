@@ -1,6 +1,6 @@
 from utils import utils_main
 from utils import utils_bookstores
-from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_product_for_bookstore, product_data
+from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_product, product_data
 
 schema_for_db_bookstores = "bookstore.bookstores"
 schema_for_db_items = "bookstore.products"
@@ -39,17 +39,28 @@ class TestBookstores:
 
 class TestBookstoreItems:
 
-    def test_create_product(self, create_product_for_bookstore):
-        response, product_id, *trash = create_product_for_bookstore
+    def test_create_product(self, create_product):
+        response, product_id, *trash = create_product
         print(f"Response: {response}")
         assert response.status_code == 201
 
-    def test_get_product_info(self, create_product_for_bookstore, product_data):
+    def test_get_product_info(self, create_product, product_data):
         new_product_data, _ = product_data
-        _, product_id, bookstore_where_product_added = create_product_for_bookstore
+        _, product_id, bookstore_where_product_added = create_product
         product_data_from_api = utils_bookstores.get_product_data(product_id)
         print(f"Product data from API: {product_data_from_api}")
         assert new_product_data['name'] == product_data_from_api['name']
         assert new_product_data['price'] == product_data_from_api['price']
         assert new_product_data['available'] == product_data_from_api['available']
+        assert bookstore_where_product_added in product_data_from_api['bookstores']
+
+    def test_update_product_info(self, create_product, product_data):
+        _, updated_product_data = product_data
+        _, product_id, bookstore_where_product_added = create_product
+        response = utils_bookstores.update_product_data(product_id, updated_product_data)
+        assert response.status_code == 204
+        product_data_from_api = utils_bookstores.get_product_data(product_id)
+        assert updated_product_data['name'] == product_data_from_api['name']
+        assert updated_product_data['price'] == product_data_from_api['price']
+        assert updated_product_data['available'] == product_data_from_api['available']
         assert bookstore_where_product_added in product_data_from_api['bookstores']

@@ -41,7 +41,7 @@ def create_bookstore(bookstore_data):
     print("Bookstore destroyed.")
 
 @pytest.fixture()
-def create_product_for_bookstore(create_bookstore, product_data):
+def create_product(create_bookstore, product_data):
     _, bookstore_id = create_bookstore
     new_product_data, _ = product_data
     response, product_id, *trash = utils_bookstores.add_product_to_bookstore(bookstore_id, new_product_data)
