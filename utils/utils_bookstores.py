@@ -41,10 +41,10 @@ def add_product_to_bookstore(bookstore_id, new_product_data):
     return response, product_id, bookstore_id
 
 
-def get_specific_product_data(product_id):
-    response = utils_main.make_api_request("GET", f"http://{host}:8183/api/v1/bookstores/product/{product_id}")
+def get_specific_product_data(product_id, allowed_statuses=None):
+    response = utils_main.make_api_request("GET", f"http://{host}:8183/api/v1/bookstores/product/{product_id}", allowed_statuses=allowed_statuses)
     product_data_from_api = json.loads(response.text)
-    return product_data_from_api
+    return response, product_data_from_api
 
 
 def get_all_products_data():
@@ -55,4 +55,8 @@ def get_all_products_data():
 
 def update_product_data(product_id, updated_product_data):
     response = utils_main.make_api_request("PUT", f"http://{host}:8183/api/v1/bookstores/product/{product_id}", updated_product_data)
+    return response
+
+def delete_product_information(bookstore_id, product_id):
+    response = utils_main.make_api_request("DELETE", f"http://{host}:8183/api/v1/bookstores/{bookstore_id}/product/{product_id}")
     return response

@@ -22,7 +22,8 @@ class TestBookstores:
         assert updated_bookstore_data["isActive"] == bookstore_data[1]["isActive"]
 
     def test_delete_bookstore(self, bookstore_data):
-        _, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
+        new_bookstore_data, _ = bookstore_data
+        _, bookstore_id = utils_bookstores.create_bookstore(new_bookstore_data)
         _, created_bookstore_data = utils_bookstores.get_specific_bookstore(bookstore_id)
         assert created_bookstore_data["id"] == bookstore_id
         utils_bookstores.delete_bookstore(bookstore_id)
@@ -41,7 +42,7 @@ class TestBookstoreProducts:
     def test_get_product_info(self, create_product, product_data):
         new_product_data, _ = product_data
         _, product_id, bookstore_where_product_added = create_product
-        product_data_from_api = utils_bookstores.get_specific_product_data(product_id)
+        _, product_data_from_api = utils_bookstores.get_specific_product_data(product_id)
         print(f"Product data from API: {product_data_from_api}")
         assert new_product_data['name'] == product_data_from_api['name']
         assert new_product_data['price'] == product_data_from_api['price']
@@ -53,7 +54,7 @@ class TestBookstoreProducts:
         _, product_id, bookstore_where_product_added = create_product
         response = utils_bookstores.update_product_data(product_id, updated_product_data)
         assert response.status_code == 204
-        product_data_from_api = utils_bookstores.get_specific_product_data(product_id)
+        _, product_data_from_api = utils_bookstores.get_specific_product_data(product_id)
         assert updated_product_data['name'] == product_data_from_api['name']
         assert updated_product_data['price'] == product_data_from_api['price']
         assert updated_product_data['available'] == product_data_from_api['available']
@@ -64,3 +65,16 @@ class TestBookstoreProducts:
         list_of_products = utils_bookstores.get_all_products_data()
         print(list_of_products)
         assert any(product.get('id') == product_id for product in list_of_products), "Created product doesnt exist on the list of all products."
+
+    def test_delete_product_by_api(self, bookstore_data, product_data):
+        new_bookstore_data, _ = bookstore_data
+        new_product_data, _ = product_data
+        response, bookstore_id = utils_bookstores.create_bookstore(new_bookstore_data)
+        assert response.status_code == 201, "Bookstore not created"
+        response, product_id, _ = utils_bookstores.add_product_to_bookstore(bookstore_id, new_product_data)
+        assert response.status_code == 201, "Product not created"
+        response = utils_bookstores.delete_product_information(bookstore_id, product_id)
+        assert response.status_code == 204, "Product not deleted"
+        response, _ = utils_bookstores.get_specific_product_data(product_id, allowed_statuses=[404])
+        assert response.status_code == 404, "Product still exist."
+
