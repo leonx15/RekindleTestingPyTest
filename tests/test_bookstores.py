@@ -1,6 +1,6 @@
 from utils import utils_main
 from utils import utils_bookstores
-from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_item_for_bookstore
+from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_product_for_bookstore
 
 schema_for_db_bookstores = "bookstore.bookstores"
 schema_for_db_items = "bookstore.products"
@@ -39,8 +39,8 @@ class TestBookstores:
 
 class TestBookstoreItems:
 
-    def test_create_item(self, create_item_for_bookstore):
-        response, item_id, *others = create_item_for_bookstore
+    def test_create_product(self, create_product_for_bookstore):
+        response, product_id, *others = create_product_for_bookstore
         print(f"Response: {response}")
         assert response.status_code == 201
 

@@ -33,8 +33,8 @@ def delete_bookstore(bookstore_id):
 
 
 # ITEMS ENDPOINTS
-def add_item_to_bookstore(bookstore_id, item_data):
+def add_product_to_bookstore(bookstore_id, item_data):
     response = utils_main.make_api_request("POST", f"http://localhost:8183/api/v1/bookstores/{bookstore_id}/product",item_data)
-    item_id = json.loads(response.text)
-    return response, item_id, bookstore_id
+    product_id = json.loads(response.text)
+    return response, product_id, bookstore_id
 

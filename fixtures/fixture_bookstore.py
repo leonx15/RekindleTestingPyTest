@@ -2,7 +2,7 @@ import pytest
 from utils import utils_bookstores, utils_main
 
 schema_for_db_bookstores = "bookstore.bookstores"
-schema_for_db_items = "bookstore.products"
+schema_for_db_products = "bookstore.products"
 schema_for_db_bookstore_items = "bookstore.bookstore_products"
 
 
@@ -19,7 +19,7 @@ def bookstore_data():
     return new_bookstore_data, bookstore_update_data
 
 
-def item_data_in_bookstore():
+def product_data_in_bookstore():
     new_item_data = {
         "name": "TestItem",
         "price": 100,
@@ -40,12 +40,12 @@ def create_bookstore(bookstore_data):
     utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
     print("Bookstore destroyed.")
 
-@pytest.fixture
-def create_item_for_bookstore(create_bookstore):
+@pytest.fixture()
+def create_product_for_bookstore(create_bookstore):
     _, bookstore_id = create_bookstore
-    response, item_id, *trash = utils_bookstores.add_item_to_bookstore(bookstore_id, item_data_in_bookstore()[0])
-    yield response, item_id, bookstore_id
+    response, product_id, *trash = utils_bookstores.add_product_to_bookstore(bookstore_id, product_data_in_bookstore()[0])
+    yield response, product_id, bookstore_id
     utils_main.remove_items_in_db(schema_for_db_bookstore_items, bookstore_id, "bookstore_id")
-    print("Connection bookstore-item cleanup done.")
-    utils_main.remove_items_in_db(schema_for_db_items, item_id)
-    print(f"Item destroyed")
+    print("Connection bookstore-product cleanup done.")
+    utils_main.remove_items_in_db(schema_for_db_products, product_id)
+    print(f"Product destroyed")
