@@ -1,11 +1,6 @@
 from utils import utils_bookstores
 from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_product, product_data
 
-schema_for_db_bookstores = "bookstore.bookstores"
-schema_for_db_items = "bookstore.products"
-schema_for_db_bookstore_items = "bookstore.bookstore_products"
-
-
 class TestBookstores:
     def test_api_status(self):
         response, _ = utils_bookstores.get_list_of_bookstores()
