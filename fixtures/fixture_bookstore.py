@@ -3,7 +3,7 @@ from utils import utils_bookstores, utils_main
 
 schema_for_db_bookstores = "bookstore.bookstores"
 schema_for_db_products = "bookstore.products"
-schema_for_db_bookstore_items = "bookstore.bookstore_products"
+schema_for_db_bookstore_products = "bookstore.bookstore_products"
 
 
 @pytest.fixture()
@@ -46,8 +46,7 @@ def create_product(create_bookstore, product_data):
     new_product_data, _ = product_data
     response, product_id, *trash = utils_bookstores.add_product_to_bookstore(bookstore_id, new_product_data)
     yield response, product_id, bookstore_id
-    utils_main.remove_items_in_db(schema_for_db_bookstore_items, bookstore_id, "bookstore_id")
+    utils_main.remove_items_in_db(schema_for_db_bookstore_products, bookstore_id, "bookstore_id")
     print("Connection bookstore-product cleanup done.")
     utils_main.remove_items_in_db(schema_for_db_products, product_id)
     print(f"Product destroyed")
-

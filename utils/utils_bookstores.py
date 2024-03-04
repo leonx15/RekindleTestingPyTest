@@ -35,18 +35,18 @@ def delete_bookstore(bookstore_id):
 
 # ITEMS ENDPOINTS
 def add_product_to_bookstore(bookstore_id, new_product_data):
-    response = utils_main.make_api_request("POST", f"http://localhost:8183/api/v1/bookstores/{bookstore_id}/product",
+    response = utils_main.make_api_request("POST", f"http://{host}:8183/api/v1/bookstores/{bookstore_id}/product",
                                            new_product_data)
     product_id = json.loads(response.text)
     return response, product_id, bookstore_id
 
 
-def get_product_data(product_id):
-    response = utils_main.make_api_request("GET", f"http://localhost:8183/api/v1/bookstores/product/{product_id}")
+def get_specific_product_data(product_id):
+    response = utils_main.make_api_request("GET", f"http://{host}:8183/api/v1/bookstores/product/{product_id}")
     product_data_from_api = json.loads(response.text)
     return product_data_from_api
 
 
 def update_product_data(product_id, updated_product_data):
-    response = utils_main.make_api_request("PUT", f"http://localhost:8183/api/v1/bookstores/product/{product_id}", updated_product_data)
+    response = utils_main.make_api_request("PUT", f"http://{host}:8183/api/v1/bookstores/product/{product_id}", updated_product_data)
     return response

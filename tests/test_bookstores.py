@@ -1,4 +1,3 @@
-from utils import utils_main
 from utils import utils_bookstores
 from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_product, product_data
 
@@ -37,7 +36,7 @@ class TestBookstores:
         print("Bookstore successfully deleted.")
 
 
-class TestBookstoreItems:
+class TestBookstoreProducts:
 
     def test_create_product(self, create_product):
         response, product_id, *trash = create_product
@@ -47,7 +46,7 @@ class TestBookstoreItems:
     def test_get_product_info(self, create_product, product_data):
         new_product_data, _ = product_data
         _, product_id, bookstore_where_product_added = create_product
-        product_data_from_api = utils_bookstores.get_product_data(product_id)
+        product_data_from_api = utils_bookstores.get_specific_product_data(product_id)
         print(f"Product data from API: {product_data_from_api}")
         assert new_product_data['name'] == product_data_from_api['name']
         assert new_product_data['price'] == product_data_from_api['price']
@@ -59,7 +58,7 @@ class TestBookstoreItems:
         _, product_id, bookstore_where_product_added = create_product
         response = utils_bookstores.update_product_data(product_id, updated_product_data)
         assert response.status_code == 204
-        product_data_from_api = utils_bookstores.get_product_data(product_id)
+        product_data_from_api = utils_bookstores.get_specific_product_data(product_id)
         assert updated_product_data['name'] == product_data_from_api['name']
         assert updated_product_data['price'] == product_data_from_api['price']
         assert updated_product_data['available'] == product_data_from_api['available']
