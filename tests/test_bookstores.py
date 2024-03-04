@@ -63,3 +63,9 @@ class TestBookstoreProducts:
         assert updated_product_data['price'] == product_data_from_api['price']
         assert updated_product_data['available'] == product_data_from_api['available']
         assert bookstore_where_product_added in product_data_from_api['bookstores']
+
+    def test_get_full_list_of_products(self, create_product):
+        _, product_id, _ = create_product
+        list_of_products = utils_bookstores.get_all_products_data()
+        print(list_of_products)
+        assert any(product.get('id') == product_id for product in list_of_products), "Created product doesnt exist on the list of all products."

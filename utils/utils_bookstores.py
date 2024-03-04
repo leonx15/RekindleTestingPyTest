@@ -47,6 +47,12 @@ def get_specific_product_data(product_id):
     return product_data_from_api
 
 
+def get_all_products_data():
+    response = utils_main.make_api_request("GET", f"http://{host}:8183/api/v1/bookstores/product")
+    product_list = json.loads(response.text)
+    return product_list
+
+
 def update_product_data(product_id, updated_product_data):
     response = utils_main.make_api_request("PUT", f"http://{host}:8183/api/v1/bookstores/product/{product_id}", updated_product_data)
     return response
