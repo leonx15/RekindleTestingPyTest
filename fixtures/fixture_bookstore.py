@@ -18,8 +18,8 @@ def bookstore_data():
     }
     return new_bookstore_data, bookstore_update_data
 
-
-def product_data_in_bookstore():
+@pytest.fixture()
+def product_data():
     new_item_data = {
         "name": "TestItem",
         "price": 100,
@@ -41,11 +41,13 @@ def create_bookstore(bookstore_data):
     print("Bookstore destroyed.")
 
 @pytest.fixture()
-def create_product_for_bookstore(create_bookstore):
+def create_product_for_bookstore(create_bookstore, product_data):
     _, bookstore_id = create_bookstore
-    response, product_id, *trash = utils_bookstores.add_product_to_bookstore(bookstore_id, product_data_in_bookstore()[0])
-    yield response, product_id, bookstore_id
+    new_product_data, _ = product_data
+    response, product_id, *trash = utils_bookstores.add_product_to_bookstore(bookstore_id, new_product_data)
+    yield response, product_id
     utils_main.remove_items_in_db(schema_for_db_bookstore_items, bookstore_id, "bookstore_id")
     print("Connection bookstore-product cleanup done.")
     utils_main.remove_items_in_db(schema_for_db_products, product_id)
     print(f"Product destroyed")
+
