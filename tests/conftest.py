@@ -1,0 +1,1 @@
+pytest_plugins = ["fixtures.fixture_bookstores", "fixtures.fixture_customers", "fixtures.fixture_payments"]
