@@ -9,4 +9,4 @@ class TestPayments:
         assert response.status_code == 200
         total_values = utils_payments.count_credit_amount(history_json)
         assert total_values == data_to_add_credits['totalPrice']
-        print(f"Response: {credit_entry_id}, totals: {total_values}")
+        print(f"Credit entry ID: {credit_entry_id}, totals: {total_values}")
