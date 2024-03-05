@@ -64,10 +64,9 @@ class TestBookstoreProducts:
         list_of_products = utils_bookstores.get_all_products_data()
         assert any(product.get('id') == product_id for product in list_of_products), "Created product doesnt exist on the list of all products."
 
-    def test_delete_product_by_api(self, bookstore_data, product_data):
-        new_bookstore_data, _ = bookstore_data
+    def test_delete_product_by_api(self, create_bookstore, product_data):
+        response, bookstore_id = create_bookstore
         new_product_data, _ = product_data
-        response, bookstore_id = utils_bookstores.create_bookstore(new_bookstore_data)
         assert response.status_code == 201, "Bookstore not created"
         response, product_id, _ = utils_bookstores.add_product_to_bookstore(bookstore_id, new_product_data)
         assert response.status_code == 201, "Product not created"

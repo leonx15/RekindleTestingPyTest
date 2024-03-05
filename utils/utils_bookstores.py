@@ -30,6 +30,7 @@ def update_bookstore(bookstore_id, json_data):
 
 def delete_bookstore(bookstore_id):
     response = utils_main.make_api_request("DELETE", f"http://{host}:8183/api/v1/bookstores/{bookstore_id}")
+    print(f"Deleting bookstore id = {bookstore_id}")
     return response
 
 
