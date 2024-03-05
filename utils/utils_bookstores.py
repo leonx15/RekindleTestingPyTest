@@ -57,6 +57,7 @@ def update_product_data(product_id, updated_product_data):
     response = utils_main.make_api_request("PUT", f"http://{host}:8183/api/v1/bookstores/product/{product_id}", updated_product_data)
     return response
 
+
 def delete_product_information(bookstore_id, product_id):
     response = utils_main.make_api_request("DELETE", f"http://{host}:8183/api/v1/bookstores/{bookstore_id}/product/{product_id}")
     return response

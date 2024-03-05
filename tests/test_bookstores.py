@@ -29,7 +29,6 @@ class TestBookstores:
         utils_bookstores.delete_bookstore(bookstore_id)
         response, _ = utils_bookstores.get_specific_bookstore(bookstore_id, allowed_statuses=[404])
         assert response.status_code == 404, "Bookstore still exist."
-        print("Bookstore successfully deleted.")
 
 
 class TestBookstoreProducts:
