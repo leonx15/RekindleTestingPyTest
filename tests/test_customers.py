@@ -1,6 +1,4 @@
 from utils import utils_customers
-from fixtures.fixture_customers import user_data, create_new_customer
-
 
 
 class TestCustomers:
