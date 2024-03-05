@@ -13,7 +13,7 @@ def data_to_add_credits(create_new_customer):
         "customerId": customer_id,
         "totalPrice": 100
     }
-    yield data_json
+    return data_json
 
 
 @pytest.fixture()
