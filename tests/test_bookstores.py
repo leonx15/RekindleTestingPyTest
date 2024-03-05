@@ -1,5 +1,5 @@
 from utils import utils_bookstores
-from fixtures.fixture_bookstore import create_bookstore, bookstore_data, create_product, product_data
+from fixtures.fixture_bookstores import create_bookstore, bookstore_data, create_product, product_data
 
 class TestBookstores:
     def test_api_status(self):
