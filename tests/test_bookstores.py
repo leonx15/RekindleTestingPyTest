@@ -63,7 +63,6 @@ class TestBookstoreProducts:
     def test_get_full_list_of_products(self, create_product):
         _, product_id, _ = create_product
         list_of_products = utils_bookstores.get_all_products_data()
-        print(list_of_products)
         assert any(product.get('id') == product_id for product in list_of_products), "Created product doesnt exist on the list of all products."
 
     def test_delete_product_by_api(self, bookstore_data, product_data):
