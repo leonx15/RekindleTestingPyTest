@@ -76,4 +76,4 @@ def remove_items_in_db(schema_with_table, product_id, db_column="id"):
     connection.commit()
     cur.close()
     connection.close()
-    return print(f"Item {product_id} cleanup done")
+    return print(f"{db_column} = {product_id} in {schema_with_table} cleanup done")
