@@ -5,10 +5,13 @@ class TestPayments:
 
     def test_add_credits(self, set_up_to_add_credit):
         customer_id = set_up_to_add_credit
-        utils_payments.add_credits_to_wallet(customer_id, 100)
-        utils_payments.add_credits_to_wallet(customer_id, 101)
-        utils_payments.add_credits_to_wallet(customer_id, 102)
+        amount_total = 0
+        amounts = [100.5, 101, 102, 103]
+        for amount in amounts:
+            utils_payments.add_credits_to_wallet(customer_id, amount)
+            amount_total += amount
         response, history_json = utils_payments.get_credit_history(customer_id)
         assert response.status_code == 200
-        total_values = utils_payments.count_credit_amount(history_json)
-        print(f"Credit entry ID: , totals: {total_values}")
+        total_credits_from_history = utils_payments.count_credit_amount(history_json)
+        assert amount_total == total_credits_from_history
+        print(f"Customer ID: {customer_id}, totals from history: {total_credits_from_history} and added by test: {amount_total}")
