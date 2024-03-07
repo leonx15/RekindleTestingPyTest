@@ -1,6 +1,5 @@
 from utils import utils_main, utils_payments
 import pytest
-import json
 
 schema_for_db_credit_entry = "payment.credit_entry"
 schema_for_db_credit_history = "payment.credit_history"

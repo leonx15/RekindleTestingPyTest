@@ -1,5 +1,5 @@
-import pytest
 from utils import utils_main, utils_customers
+import pytest
 
 schema_for_db_customers = "customer.customers"
 
