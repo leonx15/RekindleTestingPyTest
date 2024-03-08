@@ -22,7 +22,7 @@ def bookstore_data():
 def product_data():
     new_item_data = {
         "name": "TestItem",
-        "price": 100,
+        "price": 100.05,
         "available": True
     }
     updated_item_data = {
