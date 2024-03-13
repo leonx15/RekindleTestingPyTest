@@ -15,8 +15,8 @@ address_data = {
 
 
 @pytest.fixture
-def set_up_orders(set_up_to_add_credit, create_product, product_data):
-    customer_id = set_up_to_add_credit
+def set_up_orders(clean_up_after_add_credit, create_product, product_data):
+    customer_id = clean_up_after_add_credit
     _, product_id, bookstore_id = create_product
     new_product_data, _ = product_data
     products_data_for_order = [
