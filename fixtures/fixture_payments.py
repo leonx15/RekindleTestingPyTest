@@ -6,7 +6,7 @@ schema_for_db_credit_history = "payment.credit_history"
 
 
 @pytest.fixture()
-def set_up_to_add_credit(create_new_customer):
+def clean_up_after_add_credit(create_new_customer):
     _, customer_id = create_new_customer
     yield customer_id
     utils_main.remove_items_in_db(schema_for_db_credit_entry, customer_id, db_column="customer_id")

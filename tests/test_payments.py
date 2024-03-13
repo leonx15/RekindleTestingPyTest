@@ -3,8 +3,8 @@ from utils import utils_payments
 
 class TestPayments:
 
-    def test_add_credits(self, set_up_to_add_credit):
-        customer_id = set_up_to_add_credit
+    def test_add_credits(self, clean_up_after_add_credit):
+        customer_id = clean_up_after_add_credit
         amount_total = 0
         amounts = [100.5, 101, 102, 103]
         for amount in amounts:
