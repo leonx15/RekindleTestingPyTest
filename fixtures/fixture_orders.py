@@ -33,8 +33,8 @@ def set_up_orders(clean_up_after_add_credit, create_product, product_data):
     order_id = response_data["orderId"]
     print(f"Order ID: {order_id}")
     yield response, response_data
-    utils_main.remove_items_in_db(schema_for_db_order_order_items, order_id, db_column="order_id")
-    utils_main.remove_items_in_db(schema_for_db_order_order_address, order_id, db_column="order_id")
-    utils_main.remove_items_in_db(schema_for_db_order_orders, order_id)
-    utils_main.remove_items_in_db(schema_for_db_payment_payments, order_id, db_column="order_id")
+    # utils_main.remove_items_in_db(schema_for_db_order_order_items, order_id, db_column="order_id")
+    # utils_main.remove_items_in_db(schema_for_db_order_order_address, order_id, db_column="order_id")
+    # utils_main.remove_items_in_db(schema_for_db_order_orders, order_id)
+    # utils_main.remove_items_in_db(schema_for_db_payment_payments, order_id, db_column="order_id")
 

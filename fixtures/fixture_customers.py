@@ -24,4 +24,4 @@ def create_new_customer(customer_data):
     new_customer_data, _ = customer_data
     response, customer_id = utils_customers.create_customer(new_customer_data)
     yield response, customer_id
-    utils_main.remove_items_in_db(schema_for_db_customers, customer_id)
+    # utils_main.remove_items_in_db(schema_for_db_customers, customer_id)

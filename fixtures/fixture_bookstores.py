@@ -37,7 +37,7 @@ def product_data():
 def create_bookstore(bookstore_data):
     response, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
     yield response, bookstore_id
-    utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
+    # utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
 
 @pytest.fixture()
 def create_product(create_bookstore, product_data):
@@ -45,5 +45,5 @@ def create_product(create_bookstore, product_data):
     new_product_data, _ = product_data
     response, product_id, *trash = utils_bookstores.add_product_to_bookstore(bookstore_id, new_product_data)
     yield response, product_id, bookstore_id
-    utils_main.remove_items_in_db(schema_for_db_bookstore_products, bookstore_id, "bookstore_id")
-    utils_main.remove_items_in_db(schema_for_db_products, product_id)
+    # utils_main.remove_items_in_db(schema_for_db_bookstore_products, bookstore_id, "bookstore_id")
+    # utils_main.remove_items_in_db(schema_for_db_products, product_id)
