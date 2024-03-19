@@ -1,20 +1,22 @@
 from utils import utils_main, utils_customers
 import pytest
+from faker import Faker
 
 schema_for_db_customers = "customer.customers"
 
 
 @pytest.fixture()
 def customer_data():
+    fake = Faker()
     new_customer_data = {
-        "username": "Test1",
-        "firstName": "Testiko",
-        "lastName": "Testowy"
+        "username": fake.user_name(),
+        "firstName": fake.first_name(),
+        "lastName": fake.last_name()
     }
     updated_customer_data = {
-        "username": "UpdateTesto",
-        "firstName": "UpdateFirst",
-        "lastName": "UpdateLast"
+        "username": fake.user_name(),
+        "firstName": fake.first_name(),
+        "lastName": fake.last_name()
     }
     return new_customer_data, updated_customer_data
 

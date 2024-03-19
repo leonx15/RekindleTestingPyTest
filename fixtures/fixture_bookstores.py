@@ -1,5 +1,6 @@
 import pytest
 from utils import utils_bookstores, utils_main
+from faker import Faker
 
 schema_for_db_bookstores = "bookstore.bookstores"
 schema_for_db_products = "bookstore.products"
@@ -8,25 +9,29 @@ schema_for_db_bookstore_products = "bookstore.bookstore_products"
 
 @pytest.fixture()
 def bookstore_data():
+    fake = Faker()
+
     new_bookstore_data = {
-        "name": "TestowaBooks",
+        "name": fake.company() + "Books",
         "isActive": True
     }
     bookstore_update_data = {
-        "name": "UpdatedName",
+        "name": fake.company() + " Books",
         "isActive": False
     }
     return new_bookstore_data, bookstore_update_data
 
 @pytest.fixture()
 def product_data():
+    fake = Faker()
+
     new_item_data = {
-        "name": "TestItem",
+        "name": fake.sentence(nb_words=3).rstrip('.'),
         "price": 100.05,
         "available": True
     }
     updated_item_data = {
-        "name": "UpdatedItem",
+        "name": fake.sentence(nb_words=3).rstrip('.'),
         "price": 10,
         "available": True
     }

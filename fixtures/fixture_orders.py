@@ -1,16 +1,17 @@
 from utils import utils_main, utils_orders, utils_payments
 import pytest
+from faker import Faker
 
 schema_for_db_payment_payments = "payment.payments"
 schema_for_db_order_orders = "\"order\".orders"
 schema_for_db_order_order_items = "\"order\".order_items"
 schema_for_db_order_order_address = "\"order\".order_address"
 
-
+fake = Faker()
 address_data = {
-    "street": "TestowaUlica",
-    "postalCode": "123-45",
-    "city": "BigCity"
+    "street": fake.street_name(),
+    "postalCode": fake.postalcode(),
+    "city": fake.city()
 }
 
 
