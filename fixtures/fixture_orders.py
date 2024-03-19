@@ -7,7 +7,7 @@ schema_for_db_order_orders = "\"order\".orders"
 schema_for_db_order_order_items = "\"order\".order_items"
 schema_for_db_order_order_address = "\"order\".order_address"
 
-fake = Faker()
+fake = Faker('pl_PL')
 address_data = {
     "street": fake.street_name(),
     "postalCode": fake.postalcode(),
