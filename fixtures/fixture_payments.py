@@ -1,4 +1,3 @@
-from utils import utils_main, utils_payments
 import pytest
 
 schema_for_db_credit_entry = "payment.credit_entry"

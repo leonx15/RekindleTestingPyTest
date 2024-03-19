@@ -1,4 +1,4 @@
-from utils import utils_main, utils_customers
+from utils import utils_customers
 import pytest
 from faker import Faker
 

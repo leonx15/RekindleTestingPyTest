@@ -27,7 +27,6 @@ class TestCustomers:
         assert updated_customer_data["firstName"] == update_customer_data["firstName"]
         assert updated_customer_data["lastName"] == update_customer_data["lastName"]
 
-
     def test_delete_customer_by_api(self, customer_data):
         # Step 1: Create user.
         new_customer_data, _ = customer_data

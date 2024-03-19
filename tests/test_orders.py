@@ -1,5 +1,3 @@
-from utils import utils_orders, utils_payments
-
 class TestOrders:
 
     def test_create_purchase_order(self, set_up_orders):

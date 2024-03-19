@@ -1,5 +1,5 @@
 import pytest
-from utils import utils_bookstores, utils_main
+from utils import utils_bookstores
 from faker import Faker
 
 schema_for_db_bookstores = "bookstore.bookstores"
@@ -20,6 +20,7 @@ def bookstore_data():
         "isActive": False
     }
     return new_bookstore_data, bookstore_update_data
+
 
 @pytest.fixture()
 def product_data():
@@ -43,6 +44,7 @@ def create_bookstore(bookstore_data):
     response, bookstore_id = utils_bookstores.create_bookstore(bookstore_data[0])
     yield response, bookstore_id
     # utils_main.remove_items_in_db(schema_for_db_bookstores, bookstore_id)
+
 
 @pytest.fixture()
 def create_product(create_bookstore, product_data):

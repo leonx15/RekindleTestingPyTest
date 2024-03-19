@@ -1,4 +1,4 @@
-from utils import utils_main, utils_orders, utils_payments
+from utils import utils_orders, utils_payments
 import pytest
 from faker import Faker
 
@@ -38,4 +38,3 @@ def set_up_orders(clean_up_after_add_credit, create_product, product_data):
     # utils_main.remove_items_in_db(schema_for_db_order_order_address, order_id, db_column="order_id")
     # utils_main.remove_items_in_db(schema_for_db_order_orders, order_id)
     # utils_main.remove_items_in_db(schema_for_db_payment_payments, order_id, db_column="order_id")
-
