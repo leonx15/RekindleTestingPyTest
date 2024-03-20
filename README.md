@@ -26,3 +26,4 @@ thanks to this PyTest recognize each of these methods as separate test.
 | PyTest-HTML | Library to generate HTML reports to generate HTML report need put in command line *pytest --html=report.html*                     |
 | requests    | Library to handle HTTPRequests                                                                                                    |
 | psycopg2    | Library to handle database requests.                                                                                              |
+| Faker       | Library to generate fake data.                                                                                                    |
